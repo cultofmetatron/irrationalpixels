@@ -1,3 +1,13 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Irrational Pixels"
+theme = "m10c"
+
+[Params]
+    description = "Mechanically seperated memes"
+    author = "Peter de Croos"
+    avatar = "dive-pic.jpeg"
+
+[author]
+  name = "vaga"
+  homepage = "https://vaga.io"
