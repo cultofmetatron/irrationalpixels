@@ -5,6 +5,16 @@
     <link>http://example.org/</link>
     <description>Recent content on Irrational Pixels</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Apr 2021 19:50:33 -0400</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elixir - 4 Years Later</title>
+      <link>http://example.org/posts/elixir-4-years-later/</link>
+      <pubDate>Sat, 03 Apr 2021 19:50:33 -0400</pubDate>
+      
+      <guid>http://example.org/posts/elixir-4-years-later/</guid>
+      <description>Content    </description>
+    </item>
+    
   </channel>
 </rss>
