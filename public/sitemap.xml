@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/posts/elixir-4-years-later/</loc>
+    <loc>http://example.org/posts/ecto-up-and-running/</loc>
     <lastmod>2021-04-03T19:50:33-04:00</lastmod>
   </url><url>
     <loc>http://example.org/</loc>

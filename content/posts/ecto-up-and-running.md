@@ -8,12 +8,37 @@ So you just started working with phoenix and you need to learn to use the sql la
 Ecto is an immensly powerful library for working with sql.
 Unlike other ORMs you may have used, Ecto embraces what makes sql great and manages to add to that rather trying to make it something else entirely.
 
+The purpose of this guide is to get you up to speed with designing a Database schema and interacting with it from Ecto.
+You may have used other orms in the past but I'll assume you dont' know sql.
 
-With that in mind, the purpose of this guide is to get you up to speed with doing basic operations in ecto.
-
-First lets create a project.
 
 Lets create an app that allows tracking grades for teachers.
+We weant to track a set of teachers, students and classes.
+So lets think about some considerations we want to map out.
+There are many constraints asociated with the schema we want to model and it helps to list them all out.
+
+
+* A `Class` has one `Teacher`: `belongs to`
+* A `Student` attends many `Class`: `has many`
+* A `Class` has many `Student`: `has many`
+* A `Class` has many `Student` and only one `Teacher`:  `many to many`
+
+Right here we have a few relationships mapped out.
+Given the following the information, we can also infer some secondary effect
+
+* a `Student` has many `Teacher` `through` a `Class`
+* a `Teacher` has many `Student` `through` a `Class`
+
+We still havent gotten to grades! But where to store it?
+Thinking about grades, I would model it as an operation over a group of `Assignment`.
+It makes sense to think about it in terms of the `Enrollment` of the students.
+
+With that we can add a few more relationships and associated constrants
+
+* An `Enrollment` `joins` a `Student` and `Class` to establish a `many to many` relationship
+* An `Enrollment` `has many` `Assignment`
+
+
 
 By default, phoenix sets up autoincrementing integers as the primary keys.
 Setting the `--binary-id` flag ensures we'll be generating uuid primary keys 
@@ -99,6 +124,7 @@ One refreshing thing in Elixir is that there is an explicit avoidence of magic b
 
 
 Since we are dealing with classes,  it makes sense to add a class table to which will have one or more students.
+
 
 
 
