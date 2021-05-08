@@ -1,7 +1,7 @@
 ---
 title: "Database Modeling with Ecto: Part 1"
 date: 2021-04-03T19:50:33-04:00
-draft: true
+draft: false
 ---
 
 ## Creating your first records
