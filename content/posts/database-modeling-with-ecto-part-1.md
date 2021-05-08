@@ -239,8 +239,24 @@ end
 
 ### Deleting a record
 
+`Repo.delete/1` accepts a struct and deletes it. You'll get back `{:ok, teacher}` that returns the deleted record
 
-In the next installment, I'm goign to cover *relations.*
+```elixir
+  test "deleting a teacher", _ do
+    assert {:ok, teacher} = %Teacher{}
+    |> Teacher.changeset(%{
+      name: "Jose Valim"
+    })
+    |> Repo.insert()
+
+    assert {:ok, teacher} = teacher
+    |> Repo.delete()
+
+
+  end
+```
+
+And with that, you can now create, update and delete a single record. In my followup, I'll cover how to setup relations.
 
 
 
