@@ -4,16 +4,18 @@ date: 2021-04-03T19:50:33-04:00
 draft: true
 ---
 
+## Creating your first records
 
 # Contents
 1. **Relational modelling in Ecto**
 1. **Ecto Schema Fundamentals**
-2. *Creating relationships (comming soon)*
+
 
 # Relational modelling in Ecto
 
 You've heard of elixir and are just getting started with your first taste of the kool-aid.
-IF you're new to Elixir, you're probably finding ecto to be a bit of a culture shock.
+
+If you're new to Elixir, you're probably finding ecto to be a bit of a culture shock.
 Ecto is an immensly powerful library for working with sql but Unlike other ORMs you may have used, Ecto embraces what makes sql great.
 ORMs like active record or django's python objects try to hide sql behind their language specifc interfaces.
 SQL Land however, does not deal with objects.
@@ -234,6 +236,7 @@ defmodule GradeTracker.TeacherSchemaTest do
   end
 end
 ```
+
 
 
 
