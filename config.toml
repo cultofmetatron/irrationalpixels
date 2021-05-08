@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://irrational-pixels.onrender.com"
 languageCode = "en-us"
 title = "Irrational Pixels"
 theme = "m10c"
@@ -9,5 +9,5 @@ theme = "m10c"
     avatar = "dive-pic.jpeg"
 
 [author]
-  name = "vaga"
-  homepage = "https://vaga.io"
+  name = "Peter de Croos"
+  homepage = "https://irrational-pixels.onrender.com"
