@@ -1,4 +1,4 @@
-baseURL = "https://irrational-pixels.onrender.com"
+baseURL = "https://cultofmetatron.github.io/irrationalpixels/"
 languageCode = "en-us"
 title = "Irrational Pixels"
 theme = "m10c"
@@ -10,4 +10,4 @@ theme = "m10c"
 
 [author]
   name = "Peter de Croos"
-  homepage = "https://irrational-pixels.onrender.com"
+  homepage = "https://cultofmetatron.github.io/irrationalpixels/"
