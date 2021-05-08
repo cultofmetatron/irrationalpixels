@@ -256,4 +256,4 @@ end
   end
 ```
 
-And with that, you can now create, update and delete a single record. In my followup, I'll cover how to setup relations.
+And with that, you can now create, update and delete a single record. In my followup, I'll cover how to setup relations and transactions
