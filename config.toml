@@ -2,8 +2,16 @@ baseURL = "//www.irrationalpixels.com/"
 languageCode = "en-us"
 title = "Irrational Pixels"
 theme = "m10c"
+paginate = 20
 
 
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Latest"
+    url = "/"
+    weight = 1
 
 
 
@@ -13,7 +21,10 @@ theme = "m10c"
   homepage = "//www.irrationalpixels.com/"
   description = "Caffine Inspired Ideas"
   avatar = "dive-pic.jpeg"
-  menu_item_separator = " - "
+  menu_item_separator = " | "
+
+
+
   [[params.social]]
     icon = "github"
     name = "Github"
@@ -26,3 +37,7 @@ theme = "m10c"
     icon = "instagram"
     name = "Instagram"
     url = "https://www.instagram.com/cultofmetatron/"
+  [[params.social]]
+    icon = "linkedin"
+    name = "Linked In"
+    url = "https://www.linkedin.com/in/peterdecroos/"
