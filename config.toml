@@ -1,6 +1,6 @@
 baseURL = "//www.irrationalpixels.com/"
 languageCode = "en-us"
-title = "Tales From The IO.inspect()"
+title = "Tales From The IO.inspect( _ )"
 theme = "m10c"
 paginate = 20
 googleAnalytics = "G-1Y11C7EDR0"
@@ -19,7 +19,7 @@ googleAnalytics = "G-1Y11C7EDR0"
 [params]
   name = "Peter de Croos"
   homepage = "//www.irrationalpixels.com/"
-  description = "Caffine Inspired Ideas"
+  description = "elixir junkie,, beginner rustacean, javascript aficionado, intrepid adventurer"
   avatar = "dive-pic.jpeg"
   menu_item_separator = " | "
 
