@@ -19,7 +19,7 @@ googleAnalytics = "G-1Y11C7EDR0"
 [params]
   name = "Peter de Croos"
   homepage = "//www.irrationalpixels.com/"
-  description = "elixir junkie,, beginner rustacean, javascript aficionado, intrepid adventurer"
+  description = "elixir junkie, beginner rustacean, javascript aficionado, intrepid adventurer"
   avatar = "dive-pic.jpeg"
   menu_item_separator = " | "
 
