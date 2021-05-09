@@ -1,6 +1,6 @@
 baseURL = "//www.irrationalpixels.com/"
 languageCode = "en-us"
-title = "Irrational Pixels"
+title = "Tales From The IO.inspect()"
 theme = "m10c"
 paginate = 20
 
