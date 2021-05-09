@@ -3,11 +3,26 @@ languageCode = "en-us"
 title = "Irrational Pixels"
 theme = "m10c"
 
-[Params]
-    description = "Caffine Inspired Ideas"
-    author = "Peter de Croos"
-    avatar = "dive-pic.jpeg"
 
-[author]
+
+
+
+
+[params]
   name = "Peter de Croos"
   homepage = "//www.irrationalpixels.com/"
+  description = "Caffine Inspired Ideas"
+  avatar = "dive-pic.jpeg"
+  menu_item_separator = " - "
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/cultofmetatron"
+  [[params.social]]
+    icon = "twitter"
+    name = "Twitter"
+    url = "https://twitter.com/cultofmetatron"
+  [[params.social]]
+    icon = "instagram"
+    name = "Instagram"
+    url = "https://www.instagram.com/cultofmetatron/"
