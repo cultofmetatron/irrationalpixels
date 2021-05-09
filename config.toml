@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Tales From The IO.inspect()"
 theme = "m10c"
 paginate = 20
-
+googleAnalytics = "G-1Y11C7EDR0"
 
 
 [menu]
