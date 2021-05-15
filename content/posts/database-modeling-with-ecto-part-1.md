@@ -1,5 +1,5 @@
 ---
-title: "Database Modeling with Ecto: Part 1"
+title: "Database Modeling with Ecto: Part 1 - CRUD operations"
 date: 2021-04-03T19:50:33-04:00
 draft: false
 ---
