@@ -209,10 +209,128 @@ end
 I will note that adding `:teacher_id` is optional and may not be appropriate for your use case.
 the Belongs to adds other operations we will use to link classes to their associated teachers.
 By adding the column directly, you allow the column to be set directly.
-This means you should do due diligence if for instance, you take params input from a web request and pass it directly in when creating a changeset. I'll go more detail into that.
-
-Suffice to say, you should watch user inputted data to make sure that the value being inputted is appropiate.
+This means you should do due diligence when directly passing along user input;
+For instance, you take params input from a web request and pass it directly in when creating a changeset.
 
 Now we we add a [*has_many/3*](https://hexdocs.pm/ecto/Ecto.Schema.html#has_many/3) to the Teacher.
+
+
+```elixir
+
+defmodule GradeTracker.Teacher do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+  schema "teachers" do
+    field :name, :string
+
+    has_many :classes,  GradeTracker.Class
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(teacher, attrs) do
+    teacher
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
+  end
+end
+
+```
+
+Now that we have everythign setup in code, lets run the migrations.
+Make sure you have the proper configuration setup in `config/dev.exs`.
+
+
+```zsh
+$ mix ecto.migrate                                                                               [2.7.1]
+
+20:34:53.870 [info]  == Running 20210422234100 GradeTracker.Repo.Migrations.CreateTeachers.change/0 forward
+20:34:53.872 [info]  create table teachers
+20:34:53.876 [info]  == Migrated 20210422234100 in 0.0s
+20:34:53.893 [info]  == Running 20210515195753 GradeTracker.Repo.Migrations.CreateClasses.change/0 forward
+20:34:53.893 [info]  create table classes
+20:34:53.898 [info]  create index classes_teacher_id_index
+20:34:53.899 [info]  == Migrated 20210515195753 in 0.0s
+
+```
+
+
+### Building Relations
+
+Now that we have a has_many relationship setup between `Teacher, we can start thinking about inserting classes.
+
+
+
+First lets create a new test file `/test/grade_tracker_web/schemas/class_test.exs`
+
+Since we are testing out connected associations, I've added a setup case that creates a `Teacher` struct that we can use for all our demonstrations
+
+In our schema, a `Class` can be produced without a teacher so we can insert one in exactly the same as we could with `Teacher`.
+```elixir
+defmodule GradeTracker.ClassSchemaTest do
+  use  GradeTracker.DataCase
+  alias GradeTracker.Repo
+  alias GradeTracker.Teacher
+  alias GradeTracker.Class
+
+
+  def create_teacher(context) do
+    teacher = %Teacher{}
+    |> Teacher.changeset(%{
+      name: "Jose Valim"
+    })
+    |> Repo.insert!()
+
+    {:ok, %{ teacher: teacher }}
+  end
+
+  setup :create_teacher
+
+
+  test "we can insert a class", %{ teacher: _teacher } do
+    assert {:ok, _} = %Class{}
+    |> Class.changeset(%{
+      name: "botony 101",
+      subject: "biology",
+    })
+    |> Repo.insert()
+
+  end
+end
+
+```
+
+Since we added `:teacher_id` to the list of castable attributes, we can pass it in directly.
+Once its set, we can load the associated item into the structure using [*Repo.preload/3*](https://hexdocs.pm/ecto/Ecto.Repo.html#c:preload/3)
+
+```elixir
+defmodule GradeTracker.ClassSchemaTest do
+    #...
+
+  test "we can insert a teacher with a class by setting the column directly",  %{ teacher: teacher } do
+    assert {:ok, class} = %Class{}
+    |> Class.changeset(%{
+      name: "botony 101",
+      subject: "biology",
+      teacher_id: teacher.id
+    })
+    |> Repo.insert()
+
+    assert class.teacher_id == teacher.id
+    class = class |> Repo.preload([:teacher])
+
+    assert %Teacher{ name: "Jose Valim", id: teacher_id } = class.teacher
+    assert teacher_id == teacher.id
+
+  end
+
+end
+
+```
+
 
 
