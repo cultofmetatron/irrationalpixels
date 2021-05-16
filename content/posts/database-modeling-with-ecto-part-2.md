@@ -1,14 +1,9 @@
 ---
-title: "Database Modeling With Ecto Part 2 - Relationships"
+title: "Database Modeling With Ecto Part 2 - has many and belongs to Relationships"
 date: 2021-05-09T21:06:14-04:00
 tag: elixir
-draft: true
+draft: false
 ---
-
-## contents
-* creating out first relationship
-* has_many through
-* aggregate functions
 
 
 Previously, we created the inital pheonix app and created a `Teacher` struct and table.
@@ -52,7 +47,7 @@ Now that we've created the associated class and migrations, we need to make some
 
 First lets look at the migration
 
-```elxiir
+```elixir
 defmodule GradeTracker.Repo.Migrations.CreateClasses do
   use Ecto.Migration
 
@@ -103,7 +98,7 @@ What you pick for your relationships depend entirely on your use case.
 By default, the key is set to `id`. you can overide that by passing in `:column`.
 We can also add it to make the associated column more explicit.
 
-If We wanted to make it so that all classes MUST have a teacher id passed in, you could pass `null: true` to the column creation.
+If We wanted to make it so that all classes MUST have a teacher id passed in, you could pass `null: false` to the column creation.
 If you do that, `nilify_all` will not work as it will violate the null column contraint.
 You will have to either `delete_all` or have your app force the user to reasign the class before removing a teacher.
 
@@ -305,7 +300,7 @@ end
 ```
 
 Since we added `:teacher_id` to the list of castable attributes, we can pass it in directly.
-Once its set, we can load the associated item into the structure using [*Repo.preload/3*](https://hexdocs.pm/ecto/Ecto.Repo.html#c:preload/3)
+Once its set, we can load the associated item into the structure using [Repo.preload/3](https://hexdocs.pm/ecto/Ecto.Repo.html#c:preload/3)
 
 ```elixir
 defmodule GradeTracker.ClassSchemaTest do
@@ -332,5 +327,97 @@ end
 
 ```
 
+#### Ecto.build_assoc
 
+Setting up a `has_many` in the schema provides a lot of information to Ecto for how to link up associated database structs.
+The example above only works if you are directly casting a teacher_id.
+In practice, you are more likely to use Ecto's [Ecto.build_assoc/3](https://hexdocs.pm/ecto/Ecto.html#build_assoc/3) to create a new struct based on has_many relationships. You can pass this into your changeset function to create changesets with the association set.
+
+```elixir
+defmodule GradeTracker.ClassSchemaTest do
+    #...
+
+  test "we can insert a teacher with a class with build_assoc",  %{ teacher: teacher } do
+    assert {:ok, class} = teacher
+    |> Ecto.build_assoc(:classes) # we get it from the key you set in the schmema after has_many
+    |> Class.changeset(%{
+      name: "botony 101",
+      subject: "biology"
+    })
+    |> Repo.insert()
+
+    assert class.teacher_id == teacher.id
+    class = class |> Repo.preload([:teacher])
+
+    assert %Teacher{ name: "Jose Valim", id: teacher_id } = class.teacher
+    assert teacher_id == teacher.id
+
+  end
+
+end
+
+```
+
+#### Ecto.Changeset.put_assoc
+
+We can also build a `Teacher` from a `Class` but they wont be connnected with an association.
+
+
+This is because we aren't writing anything to the class which is where the column that sets the association is set.
+We would have to set that explicitly using [Ecto.Changeset.put_assoc/4](https://hexdocs.pm/ecto/Ecto.Changeset.html#put_assoc/4).
+
+> Note: you will need to preload the association before you attempt to upadate the association.
+
+```elixir
+
+defmodule GradeTracker.ClassSchemaTest do
+   #...
+
+  test "we build a teacher from a class using build assoc as well",  %{ teacher: _teacher } do
+    assert {:ok, class} = %Class{}
+    |> Class.changeset(%{
+      name: "botony 101",
+      subject: "biology",
+    })
+    |> Repo.insert()
+
+    assert {:ok, teacher } = class
+    |> Ecto.build_assoc(:teacher)
+    |> Teacher.changeset(%{
+      name: "Richard Feynman"
+    })
+    |> Repo.insert()
+
+    # the association has to be loaded before we can alter it, leave this oput and you'll get an error
+    class = class |> Repo.preload([:teacher])
+
+    assert {:ok, class} = class
+      |> Class.changeset(%{})
+      |> Ecto.Changeset.put_assoc(:teacher, teacher)
+      |> Repo.update()
+
+    class = class |> Repo.preload([:teacher], force: true) #we force a refresh to get the new data
+    
+    assert class.teacher_id == teacher.id
+
+
+    assert %Teacher{ name: "Richard Feynman", id: teacher_id } = class.teacher
+    assert teacher_id == teacher.id
+
+  end
+
+end
+
+```
+
+And With that, you have the tools to construct relations based on has_many and belongs_to.
+to wrap things up.
+
+#### Key ideas
+
+* A refernces id is used to set a record as belonging to another record.
+* You can use **build_assoc** to create an associated record for insertion
+* **put_assoc** is used to set an association after the fact.
+
+Next I'll go over how to create many to many relationships.
 
