@@ -6,7 +6,7 @@ draft: false
 ---
 
 
-Previously, we created the inital pheonix app and created a `Teacher` struct and table.
+Previously, we created the initial phoenix app and created a `Teacher` struct and table.
 We went over how to perform the basic CRUD operations as well as how to do some basic tests to verify the functionality.
 In part 2, we're going to be adding more structs and defining relationships between them.
 We'll also go over how to fetch records with their associations.
